@@ -106,7 +106,7 @@ Word2vec всё ещё неплохо учитываем дословное сх
 
 3. Указать в командной строке путь к папке с файлом `cli.py`. Например, `cd C:\Users\ttais\Documents`.
 
-4. Установить все требуемые библиотеки командой `python -m pip install numpy pandas nltk pymorphy3 scikit-learn gensim fasttext rank-bm25`.
+4. Установить все требуемые библиотеки командой `python -m pip install numpy pandas nltk pymorphy3 scikit-learn gensim fasttext rank-bm25`, затем `python -m nltk.downloader punkt punkt_tab`.
 
 5. Запустить поиск с нужными параметрами командой `python cli.py --query "<текст запроса>" --index <тип индекса> --top_k <k>`.
 
