@@ -129,6 +129,8 @@ Word2vec всё ещё неплохо учитываем дословное сх
   - индекс документа в корпусе
   - оценка сходства
   - текст документа
+ 
+[Пример поиска](https://github.com/afkhabirzyanova/Project_infopoisk/blob/main/search_example.png)
 
 ---
 
