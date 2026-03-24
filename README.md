@@ -130,6 +130,8 @@ Word2vec всё ещё неплохо учитываем дословное сх
   - оценка сходства
   - текст документа
  
+**Пример поиска**
+ 
 ![Пример поиска](https://github.com/afkhabirzyanova/Project_infopoisk/blob/main/search_example.png)
 
 ---
