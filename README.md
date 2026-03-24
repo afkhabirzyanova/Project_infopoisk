@@ -16,8 +16,6 @@
 
 Используется [корпус порошков](https://github.com/tadgeislamins/poroshki_corpus) (1000 текстов), собранный на основе материалов паблика [Порошки](https://vk.com/sandalporoshki).
 
-`poroshki_corpus.csv` - можно скачать корпус.
-
 ---
 
 ## Предобработка
