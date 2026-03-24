@@ -12,12 +12,8 @@ import gensim.downloader as api
 import fasttext
 from rank_bm25 import BM25Okapi
 
-# nltk.download('punkt_tab')
-# nltk.download('punkt')
-
 url = 'https://raw.githubusercontent.com/tadgeislamins/poroshki_corpus/main/instance/text_id.csv'
 df = pd.read_csv(url, index_col=0)
-
 
 '''
 Предобработка для BM-25 модели. На всякий случай приводим к строчным и удаляем 
@@ -30,7 +26,6 @@ def preprocess(text):
     tokens = word_tokenize(text)
     tokens = [morph.parse(t)[0].normal_form for t in tokens]
     return tokens
-
 
 POS_MAP = {
     'NOUN': 'NOUN',
@@ -79,7 +74,6 @@ def preprocess_word2vec(text):
 
     return result
 
-
 '''
 Предобработка для fasttext модели. Не делаем лемматизацию.
 '''
@@ -88,7 +82,6 @@ def preprocess_fasttext(text):
     text = re.sub(r'[^\w\s]', '', text)
     tokens = word_tokenize(text)
     return tokens
-
 
 morph = MorphAnalyzer()
 # Получаем предобработку для индекса BM-25.
@@ -103,8 +96,7 @@ docs_word2vec = {'ids': list(df['id']), 'docs_original': list(df['text']), 'docs
 df['preprocessed_fasttext'] = df['text'].apply(preprocess_fasttext)
 docs_fasttext = {'ids': list(df['id']), 'docs_original': list(df['text']), 'docs_preprocessed': list(df['preprocessed_fasttext'])}
 
-
-# Строим индекс BM-25.
+# Функция для построения индекса BM-25.
 def build_bm25_index(docs):
     return {
         'idx_type': 'bm25',
@@ -113,7 +105,7 @@ def build_bm25_index(docs):
         'bm25': BM25Okapi(docs['docs_preprocessed'])
     }
 
-# Строим индекс word2vec.
+# Функция для построения индекса word2vec.
 def text_to_vector(tokens, model):
     vectors = []
 
@@ -142,7 +134,7 @@ def build_word2vec_index(docs, model):
         'model': model
     }
 
-# Строим индекс fasttext.
+# Функция для построения индекса fasttext.
 def text_to_vector_fasttext(tokens, model):
     vectors = []
 
@@ -170,7 +162,6 @@ def build_fasttext_index(docs, model):
         'doc_vectors': doc_vectors,
         'model': model
     }
-
 
 def search(query, index, top_k=5):
     doc_ids = index['doc_ids']
@@ -221,7 +212,6 @@ def search(query, index, top_k=5):
         res.append((int(doc_ids[i]), float(scores[i]), docs_original[i]))
     return res
 
-
 def get_index(index_name):
     if index_name == 'bm25':
         return build_bm25_index(docs)
@@ -233,7 +223,6 @@ def get_index(index_name):
     elif index_name == 'fasttext':
         model_fasttext = fasttext.load_model('cc.ru.300.bin')
         return build_fasttext_index(docs_fasttext, model_fasttext)
-
 
 def run_search(query, index_name, top_k=5):
     print('=' * 40)
@@ -259,7 +248,6 @@ def run_search(query, index_name, top_k=5):
             print(f'{i}. [id={doc_id}] score={score:.4f}')
             print(text.strip())
             print()
-
 
 def run_cli():
     parser = argparse.ArgumentParser(description='Поиск по корпусу порошков')
